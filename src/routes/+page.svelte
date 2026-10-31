@@ -2,12 +2,16 @@
 	<title>Trillux Advertising Agents — Plan • Promote • Grow</title>
 	<meta name="description" content="Your Trusted Advertising Partner. Reach more. Grow faster. Achieve more." />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+	<style>
+		:global(body) {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		}
+		h1, h2, h3, h4, .logo-text, .logo-icon {
+			font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+		}
+	</style>
 </svelte:head>
 
-<!-- Navigation -->
 <nav class="navbar">
 	<div class="nav-container">
 		<a href="#" class="logo-wrap">
@@ -23,7 +27,6 @@
 	</div>
 </nav>
 
-<!-- Hero Section -->
 <section class="hero">
 	<div class="hero-overlay"></div>
 	<div class="hero-container">
@@ -51,7 +54,6 @@
 	</div>
 </section>
 
-<!-- Services Section -->
 <section id="services" class="section dark-section">
 	<div class="container">
 		<div class="section-header">
@@ -79,7 +81,6 @@
 	</div>
 </section>
 
-<!-- Why Us Section -->
 <section id="why" class="section light-section">
 	<div class="container">
 		<div class="two-column">
@@ -106,7 +107,6 @@
 	</div>
 </section>
 
-<!-- About Section -->
 <section id="about" class="section dark-section">
 	<div class="container">
 		<div class="two-column reverse">
@@ -127,7 +127,6 @@
 	</div>
 </section>
 
-<!-- Contact Section -->
 <section id="contact" class="section gold-section">
 	<div class="container contact-wrap">
 		<div class="contact-text">
@@ -144,7 +143,6 @@
 	</div>
 </section>
 
-<!-- Footer -->
 <footer class="footer">
 	<div class="container footer-grid">
 		<div class="footer-brand">
@@ -168,7 +166,7 @@
 		</div>
 	</div>
 	<div class="footer-bottom">
-		<p>© 2026 Trillux Advertising Agents. All rights reserved. <br />Reach more. Grow faster. Achieve more.</p>
+		<p>© 2026 Trillux Advertising Agents. All rights reserved.<br />Reach more. Grow faster. Achieve more.</p>
 	</div>
 </footer>
 
@@ -184,14 +182,12 @@
 	}
 
 	:global(body) {
-		font-family: 'Inter', sans-serif;
 		background: #050508;
 		color: #fff;
 		line-height: 1.6;
 	}
 
 	h1, h2, h3, h4 {
-		font-family: 'Playfair Display', serif;
 		font-weight: 700;
 		line-height: 1.2;
 	}
@@ -211,7 +207,6 @@
 		margin: 1.5rem 0 2rem;
 	}
 
-	/* Navbar */
 	.navbar {
 		position: absolute;
 		width: 100%;
@@ -240,7 +235,6 @@
 		height: 42px;
 		background: linear-gradient(135deg, #d4af37, #f4d03f);
 		color: #000;
-		font-family: 'Playfair Display', serif;
 		font-weight: 800;
 		font-size: 1.5rem;
 		display: flex;
@@ -250,7 +244,6 @@
 	}
 
 	.logo-text {
-		font-family: 'Playfair Display', serif;
 		font-size: 1.5rem;
 		font-weight: 700;
 		color: white;
@@ -289,7 +282,6 @@
 		transform: translateY(-1px);
 	}
 
-	/* Hero */
 	.hero {
 		min-height: 100vh;
 		display: flex;
@@ -397,7 +389,6 @@
 		text-transform: uppercase;
 	}
 
-	/* Sections Base */
 	.section {
 		padding: 5.5rem 2rem;
 	}
@@ -444,7 +435,6 @@
 		margin: 0 auto;
 	}
 
-	/* Services Grid */
 	.services-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -483,7 +473,6 @@
 		line-height: 1.7;
 	}
 
-	/* Two Column Layout */
 	.two-column {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -551,7 +540,6 @@
 	}
 
 	.accent-quote {
-		font-family: 'Playfair Display', serif;
 		font-size: 1.5rem;
 		font-weight: 600;
 		color: #d4af37;
@@ -565,7 +553,6 @@
 	}
 
 	.stat-main {
-		font-family: 'Playfair Display', serif;
 		font-size: 1.8rem;
 		font-weight: 700;
 		color: #d4af37;
@@ -577,7 +564,6 @@
 		font-size: 0.95rem;
 	}
 
-	/* Contact */
 	.contact-wrap {
 		display: grid;
 		grid-template-columns: 1fr 1.2fr;
@@ -610,7 +596,6 @@
 		font-size: 1rem;
 		background: rgba(255,255,255,0.9);
 		color: #000;
-		font-family: inherit;
 	}
 
 	.contact-form input:focus,
@@ -636,7 +621,6 @@
 		transform: translateY(-2px);
 	}
 
-	/* Footer */
 	.footer {
 		background: #000;
 		padding: 4rem 2rem 2rem;
@@ -684,9 +668,10 @@
 	.footer-contact h4 {
 		font-size: 0.9rem;
 		text-transform: uppercase;
-		letter-spacing: 1px	margin-bottom: 1rem;
-	color: #d4af37;
-}
+		letter-spacing: 1px;
+		margin-bottom: 1rem;
+		color: #d4af37;
+	}
 
 	.footer-links ul {
 		list-style: none;
@@ -718,7 +703,6 @@
 		line-height: 1.8;
 	}
 
-	/* Responsive */
 	@media (max-width: 900px) {
 		.navbar, .hero {
 			padding: 1.5rem;
@@ -731,7 +715,6 @@
 		.hero h1 {
 			font-size: 2.5rem;
 		}
-
 		.two-column,
 		.contact-wrap {
 			grid-template-columns: 1fr;
@@ -749,6 +732,10 @@
 
 		.section h2 {
 			font-size: 1.75rem;
+		}
+
+		.navbar {
+			padding: 1.5rem;
 		}
 	}
 </style>
