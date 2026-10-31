@@ -1,13 +1,15 @@
 <slot />
 
 <style>
-	:global(*) {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
+	:global(html) {
+		scroll-behavior: smooth;
 	}
 	:global(body) {
-		font-family: system-ui, sans-serif;
 		line-height: 1.6;
+	}
+	:global(input),
+	:global(textarea),
+	:global(button) {
+		font-family: inherit;
 	}
 </style>
