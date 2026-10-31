@@ -1,4 +1,4 @@
-import { adapter } from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-auto';
 
 export default {
   kit: {
