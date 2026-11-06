@@ -16,55 +16,11 @@
       overflow-x: hidden;
     }
 
-    /* ===== COUNTDOWN SCREEN ===== */
-    .countdown-container {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #fffaf0 0%, #fff3cd 50%, #ffe066 100%);
-      z-index: 9999;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
-    }
-    .countdown-container.swipe-out {
-      transform: translateY(-100%);
-      opacity: 0;
-      pointer-events: none;
-    }
-    .countdown-card {
-      text-align: center;
-      padding: 3rem 4rem;
-      background: rgba(255,255,255,0.9);
-      border-radius: 24px;
-      box-shadow: 0 10px 40px rgba(107, 66, 38, 0.15);
-    }
-    .countdown-number {
-      font-size: 6rem;
-      font-weight: 700;
-      color: #ff4d6d;
-      line-height: 1;
-      animation: pulseCount 1s ease-in-out;
-    }
-    @keyframes pulseCount {
-      0% { transform: scale(0.5); opacity: 0; }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .countdown-text {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #a67c52;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* ===== MUSIC TOGGLE ===== */
     .music-toggle {
       position: fixed;
       top: 1.2rem;
       right: 1.5rem;
-      z-index: 999;
+      z-index: 9999;
       background: rgba(255,255,255,0.9);
       border: none;
       border-radius: 50%;
@@ -77,12 +33,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .music-toggle.visible {
-      opacity: 1;
-      pointer-events: auto;
     }
     .music-toggle:hover {
       transform: scale(1.1);
@@ -105,7 +55,6 @@
       border: none;
     }
 
-    /* ===== MAIN PAGE ===== */
     .page {
       min-height: 100vh;
       display: flex;
@@ -116,13 +65,6 @@
       max-width: 1100px;
       margin: 0 auto;
       position: relative;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
-    }
-    .page.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .hearts-bg {
@@ -138,6 +80,7 @@
       font-size: 1.6rem;
       animation: floatHeart 8s ease-in-out infinite;
     }
+
     .heart:nth-child(odd) { color: rgba(255, 180, 80, 0.35); }
     .heart:nth-child(3n) { color: rgba(255, 100, 100, 0.35); }
 
@@ -154,15 +97,17 @@
       margin-bottom: 2.5rem;
       z-index: 1;
     }
+
     h1 {
       font-size: 2.4rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       opacity: 0;
       transform: translateY(30px) scale(0.9);
-      animation: grandReveal 1.5s ease-out 0.5s forwards;
+      animation: grandReveal 1.5s ease-out forwards;
       text-shadow: 0 4px 20px rgba(107, 66, 38, 0.15);
     }
+
     .subtitle {
       font-size: 1.15rem;
       color: #a67c52;
@@ -170,12 +115,14 @@
       margin-top: 0.8rem;
       opacity: 0;
       letter-spacing: 1px;
-      animation: fadeGlow 1.5s ease-out 0.7s forwards;
+      animation: fadeGlow 1.5s ease-out 0.4s forwards;
     }
+
     @keyframes grandReveal {
       0% { opacity: 0; transform: translateY(40px) scale(0.8); letter-spacing: 8px; }
       100% { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 2px; }
     }
+
     @keyframes fadeGlow { to { opacity: 1; } }
 
     .main-grid {
@@ -187,6 +134,7 @@
       align-items: stretch;
       z-index: 1;
     }
+
     .photo-card {
       position: relative;
       background: rgba(255,255,255,0.95);
@@ -197,13 +145,16 @@
         inset 0 0 0 1px rgba(255, 255, 255, 0.8);
       opacity: 0;
       transform: translateY(50px) scale(0.95);
-      animation: cardSweepIn 1.2s cubic-bezier(0.17, 0.67, 0.23, 0.99) 0.9s forwards;
+      animation: cardSweepIn 1.2s cubic-bezier(0.17, 0.67, 0.23, 0.99) forwards;
       overflow: hidden;
     }
-    .photo-card:nth-child(2) { animation-delay: 1.1s; }
+
+    .photo-card:nth-child(2) { animation-delay: 0.3s; }
+
     @keyframes cardSweepIn {
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
     .photo-frame {
       width: 100%;
       aspect-ratio: 3/4;
@@ -215,6 +166,7 @@
                   linear-gradient(45deg, #ff4d6d, #ffcc00, #ff4d6d, #ffcc00) border-box;
       box-shadow: 0 0 18px rgba(255, 77, 109, 0.25);
     }
+
     .photo-frame img {
       width: 100%;
       height: 100%;
@@ -222,7 +174,9 @@
       background: #f8f8f8;
       transition: transform 6s ease;
     }
+
     .photo-card:hover .photo-frame img { transform: scale(1.03); }
+
     .card-heart {
       position: absolute;
       top: 0.6rem;
@@ -232,6 +186,7 @@
       animation: heartBeat 2s ease-in-out infinite;
       filter: drop-shadow(0 0 6px rgba(255, 77, 109, 0.4));
     }
+
     .photo-label {
       margin-top: 1rem;
       text-align: center;
@@ -248,6 +203,7 @@
       position: relative;
       z-index: 1;
     }
+
     .circle-hearts-title {
       text-align: center;
       font-size: 1.2rem;
@@ -256,15 +212,15 @@
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      opacity: 0;
-      animation: fadeIn 1s ease-out 1.3s forwards;
     }
+
     .circle-hearts-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.2rem;
     }
+
     .heart-pic {
       position: relative;
       width: 100px;
@@ -273,21 +229,25 @@
       transform: translateY(30px) scale(0.8);
       animation: popHeartPic 0.8s ease-out forwards, fastBounce 0.55s ease-in-out infinite alternate;
     }
-    .heart-pic:nth-child(1) { animation-delay: 1.4s, 0s; }
-    .heart-pic:nth-child(2) { animation-delay: 1.5s, 0.08s; }
-    .heart-pic:nth-child(3) { animation-delay: 1.6s, 0.16s; }
-    .heart-pic:nth-child(4) { animation-delay: 1.7s, 0.24s; }
-    .heart-pic:nth-child(5) { animation-delay: 1.8s, 0.32s; }
-    .heart-pic:nth-child(6) { animation-delay: 1.9s, 0.4s; }
-    .heart-pic:nth-child(7) { animation-delay: 2.0s, 0.1s; }
-    .heart-pic:nth-child(8) { animation-delay: 2.1s, 0.18s; }
+
+    .heart-pic:nth-child(1) { animation-delay: 0.6s, 0s; }
+    .heart-pic:nth-child(2) { animation-delay: 0.75s, 0.08s; }
+    .heart-pic:nth-child(3) { animation-delay: 0.9s, 0.16s; }
+    .heart-pic:nth-child(4) { animation-delay: 1.05s, 0.24s; }
+    .heart-pic:nth-child(5) { animation-delay: 1.2s, 0.32s; }
+    .heart-pic:nth-child(6) { animation-delay: 1.35s, 0.4s; }
+    .heart-pic:nth-child(7) { animation-delay: 1.5s, 0.1s; }
+    .heart-pic:nth-child(8) { animation-delay: 1.65s, 0.18s; }
+
     @keyframes popHeartPic {
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
     @keyframes fastBounce {
       0% { transform: translateY(0) scale(1); }
       100% { transform: translateY(-8px) scale(1.05); }
     }
+
     .heart-pic img {
       width: 100%;
       height: 100%;
@@ -303,21 +263,24 @@
       gap: 1rem;
       margin: 0.5rem 0 2.5rem;
       opacity: 0;
-      animation: fadeIn 1s ease-out 2.2s forwards;
+      animation: fadeIn 1s ease-out 0.8s forwards;
       z-index: 1;
     }
+
     .divider-line {
       height: 2px;
       flex: 1;
       max-width: 100px;
       background: linear-gradient(90deg, transparent, #ff4d6d, transparent);
     }
+
     .divider-heart {
       font-size: 2.2rem;
       color: #ff4d6d;
       animation: heartBeat 2s ease-in-out infinite;
       filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.35));
     }
+
     @keyframes heartBeat {
       0%,100% { transform: scale(1); }
       15% { transform: scale(1.25); }
@@ -325,6 +288,7 @@
       45% { transform: scale(1.2); }
       60% { transform: scale(1); }
     }
+
     @keyframes fadeIn { to { opacity: 1; } }
 
     .quote-wrapper {
@@ -332,9 +296,10 @@
       width: 100%;
       opacity: 0;
       transform: translateY(30px);
-      animation: quoteRise 1.5s ease-out 2.4s forwards;
+      animation: quoteRise 1.5s ease-out 1.1s forwards;
       z-index: 1;
     }
+
     .quote-card {
       background: rgba(255,255,255,0.96);
       border-radius: 24px;
@@ -345,6 +310,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .quote-card::before, .quote-card::after {
       content: '';
       position: absolute;
@@ -353,8 +319,9 @@
       border-color: rgba(255, 77, 109, 0.35);
       border-style: solid;
       opacity: 0;
-      animation: cornerPop 1.2s ease-out 2.6s forwards;
+      animation: cornerPop 1.2s ease-out 1.5s forwards;
     }
+
     .quote-card::before {
       top: 1.5rem; left: 1.5rem;
       border-width: 3px 0 0 3px;
@@ -362,9 +329,11 @@
     .quote-card::after {
       bottom: 1.5rem; right: 1.5rem;
       border-width: 0 3px 3px 0;
-      animation-delay: 2.8s;
+      animation-delay: 1.7s;
     }
+
     @keyframes cornerPop { to { opacity: 1; } }
+
     .quote-mark {
       font-size: 4rem;
       line-height: 1;
@@ -374,6 +343,7 @@
       top: 0.5rem; left: 1.5rem;
       pointer-events: none;
     }
+
     .quote-text {
       font-size: 1.35rem;
       line-height: 2;
@@ -383,18 +353,22 @@
       position: relative;
       z-index: 1;
     }
+
     .quote-text p {
       margin-bottom: 1.8rem;
       opacity: 0;
       transform: translateY(15px);
       animation: lineFade 1s ease-out forwards;
     }
-    .quote-text p:nth-child(1) { animation-delay: 2.7s; }
-    .quote-text p:nth-child(2) { animation-delay: 3.0s; }
-    .quote-text p:nth-child(3) { animation-delay: 3.3s; }
+
+    .quote-text p:nth-child(1) { animation-delay: 1.4s; }
+    .quote-text p:nth-child(2) { animation-delay: 1.7s; }
+    .quote-text p:nth-child(3) { animation-delay: 2.0s; }
+
     @keyframes lineFade {
       to { opacity: 1; transform: translateY(0); }
     }
+
     .author-line {
       text-align: center;
       margin-top: 2rem;
@@ -403,20 +377,23 @@
       font-weight: 600;
       letter-spacing: 2px;
       opacity: 0;
-      animation: fadeIn 1s ease-out 3.6s forwards;
+      animation: fadeIn 1s ease-out 2.3s forwards;
     }
+
     @keyframes quoteRise {
       to { opacity: 1; transform: translateY(0); }
     }
+
     .shimmer {
       position: absolute;
       top: 0; left: -100%;
       width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       animation: shimmerSweep 4s ease-in-out infinite;
-      animation-delay: 4s;
+      animation-delay: 2s;
       pointer-events: none;
     }
+
     @keyframes shimmerSweep {
       0% { left: -100%; }
       50% { left: 100%; }
@@ -430,22 +407,11 @@
       .main-grid { gap: 2rem; }
       .quote-card { padding: 2rem 1.5rem; }
       .heart-pic { width: 80px; height: 80px; }
-      .countdown-card { padding: 2rem 2.5rem; }
-      .countdown-number { font-size: 4rem; }
     }
   </style>
 </svelte:head>
 
-<!-- ===== COUNTDOWN SCREEN ===== -->
-<div class="countdown-container" class:swipe-out={countdownComplete}>
-  <div class="countdown-card">
-    <div class="countdown-number" key={count}>{count}</div>
-    <p class="countdown-text">Get Ready...</p>
-  </div>
-</div>
-
-<!-- ===== MUSIC TOGGLE ===== -->
-<button class="music-toggle" class:visible={countdownComplete} class:playing={isPlaying} on:click={toggleMusic}>
+<button class="music-toggle" class:playing={isPlaying} on:click={toggleMusic}>
   {isPlaying ? '🔊' : '🔇'}
 </button>
 
@@ -459,8 +425,7 @@
   allowfullscreen
 ></iframe>
 
-<!-- ===== MAIN CONTENT ===== -->
-<div class="page" class:visible={countdownComplete}>
+<div class="page">
   <div class="hearts-bg">
     {#each hearts as h}
       <span
@@ -504,7 +469,7 @@
     <p class="circle-hearts-title">OUR FRIENDSHIP IN LITTLE HEARTS</p>
     <div class="circle-hearts-grid">
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
-      WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 3" /></div>
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 4" /></div>
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 5" /></div>
@@ -537,13 +502,13 @@
 <script>
   import { onMount } from 'svelte';
 
+  // Your song: Nyasha David - Nokusingaperi
   const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
 
-  let count = 5;
-  let countdownComplete = false;
   let isPlaying = false;
   let playerFrame;
-  let youtubeUrl = '';
+  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
+
   let hearts = [];
 
   function generateHearts(count = 15) {
@@ -566,25 +531,12 @@
       if (isPlaying) {
         playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=0`;
       } else {
-        playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=0&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
+        playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
       }
     }
   }
 
   onMount(() => {
     hearts = generateHearts(15);
-
-    const timer = setInterval(() => {
-      count--;
-      if (count <= 0) {
-        clearInterval(timer);
-        countdownComplete = true;
-        setTimeout(() => {
-          isPlaying = true;
-          youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=0`;
-        }, 800);
-      }
-    }, 1000);
   });
 </script>
-
