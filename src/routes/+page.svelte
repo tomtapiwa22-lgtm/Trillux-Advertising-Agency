@@ -502,12 +502,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  // ✅ YOUR SONG: Nyasha David - Nokusingaperi
-  const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
-
-  let isPlaying = false;
-  let playerFrame;
-  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID
+  // Your song: Nyasha David - Nokusingaperi
   const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
 
   let isPlaying = false;
@@ -545,3 +540,4 @@
     hearts = generateHearts(15);
   });
 </script>
+
