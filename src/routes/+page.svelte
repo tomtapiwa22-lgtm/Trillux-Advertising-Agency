@@ -79,7 +79,6 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s ease;
     }
     .music-toggle.visible {
       opacity: 1;
@@ -106,7 +105,7 @@
       border: none;
     }
 
-    /* ===== MAIN PAGE (hidden until countdown done) ===== */
+    /* ===== MAIN PAGE ===== */
     .page {
       min-height: 100vh;
       display: flex;
@@ -500,10 +499,11 @@
       <p class="photo-label">Friend Two</p>
     </div>
   </div>
-    <div class="circle-hearts-section">
-      <p class="circle-hearts-title">OUR FRIENDSHIP IN LITTLE HEARTS</p>
-      <div class="circle-hearts-grid">
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
+
+  <div class="circle-hearts-section">
+    <p class="circle-hearts-title">OUR FRIENDSHIP IN LITTLE HEARTS</p>
+    <div class="circle-hearts-grid">
+              <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
         <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
         <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 3" /></div>
         <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 4" /></div>
@@ -591,3 +591,4 @@
     }, 1000);
   });
 </script>
+
