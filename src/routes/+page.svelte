@@ -8,8 +8,8 @@
     body {
       min-height: 100vh;
       background:
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.8) 0%, transparent 50%),
-        radial-gradient(circle at 90% 18%, rgba(255,255,255,0.6) 0%, transparent 45%),
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.9) 0%, transparent 50%),
+        radial-gradient(circle at 90% 18%, rgba(255,255,255,0.7) 0%, transparent 45%),
         linear-gradient(135deg, #fffaf0 0%, #fff3cd 35%, #ffe066 70%, #ffcc00 100%);
       font-family: 'Segoe UI', Georgia, serif;
       color: #6b4226;
@@ -23,7 +23,7 @@
       align-items: center;
       justify-content: center;
       padding: 2.5rem 2rem;
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
       position: relative;
     }
@@ -95,7 +95,7 @@
 
     .main-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 2.5rem;
       width: 100%;
       margin-bottom: 2.5rem;
@@ -130,21 +130,26 @@
 
     .photo-frame {
       width: 100%;
-      aspect-ratio: 4/5;
+      aspect-ratio: 3/4;
       border-radius: 20px;
       overflow: hidden;
       position: relative;
+      border: 4px solid transparent;
+      background: linear-gradient(#fff, #fff) padding-box,
+                  linear-gradient(45deg, #ff4d6d, #ffcc00, #ff4d6d, #ffcc00) border-box;
+      box-shadow: 0 0 18px rgba(255, 77, 109, 0.25);
     }
 
     .photo-frame img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: #f8f8f8;
       transition: transform 6s ease;
     }
 
     .photo-card:hover .photo-frame img {
-      transform: scale(1.08);
+      transform: scale(1.03);
     }
 
     .card-heart {
@@ -168,7 +173,7 @@
 
     .circle-hearts-section {
       width: 100%;
-      max-width: 750px;
+      max-width: 900px;
       margin: 2rem 0 2.5rem;
       position: relative;
       z-index: 1;
@@ -193,25 +198,32 @@
 
     .heart-pic {
       position: relative;
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       opacity: 0;
       transform: translateY(30px) scale(0.8);
-      animation: popHeartPic 0.8s ease-out forwards;
+      animation: popHeartPic 0.8s ease-out forwards, fastBounce 0.55s ease-in-out infinite alternate;
     }
 
-    .heart-pic:nth-child(1) { animation-delay: 0.6s; }
-    .heart-pic:nth-child(2) { animation-delay: 0.75s; }
-    .heart-pic:nth-child(3) { animation-delay: 0.9s; }
-    .heart-pic:nth-child(4) { animation-delay: 1.05s; }
-    .heart-pic:nth-child(5) { animation-delay: 1.2s; }
-    .heart-pic:nth-child(6) { animation-delay: 1.35s; }
+    .heart-pic:nth-child(1) { animation-delay: 0.6s, 0s; }
+    .heart-pic:nth-child(2) { animation-delay: 0.75s, 0.08s; }
+    .heart-pic:nth-child(3) { animation-delay: 0.9s, 0.16s; }
+    .heart-pic:nth-child(4) { animation-delay: 1.05s, 0.24s; }
+    .heart-pic:nth-child(5) { animation-delay: 1.2s, 0.32s; }
+    .heart-pic:nth-child(6) { animation-delay: 1.35s, 0.4s; }
+    .heart-pic:nth-child(7) { animation-delay: 1.5s, 0.1s; }
+    .heart-pic:nth-child(8) { animation-delay: 1.65s, 0.18s; }
 
     @keyframes popHeartPic {
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
       }
+    }
+
+    @keyframes fastBounce {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.05); }
     }
 
     .heart-pic img {
@@ -411,8 +423,8 @@
       }
 
       .heart-pic {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
       }
     }
   </style>
@@ -459,7 +471,7 @@
   </div>
 
   <div class="circle-hearts-section">
-    <p class="circle-hearts-title">Our Friendship in Little Hearts</p>
+    <p class="circle-hearts-title">OUR FRIENDSHIP IN LITTLE HEARTS</p>
     <div class="circle-hearts-grid">
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
@@ -467,6 +479,8 @@
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 4" /></div>
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 5" /></div>
       <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 6" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 7" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 8" /></div>
     </div>
   </div>
 
@@ -483,7 +497,7 @@
       <div class="quote-text">
         <p>Friendship begins with a simple hello, but it grows into something that feels like home — a heart that understands yours even when words are few.</p>
         <p>True friends don't need to be together every day. What matters is that when life changes, when days get heavy, and when joy comes around, you still know someone is there, cheering you on from their heart.</p>
-        <p>Every laugh shared, every quiet moment, and every little memory becomes a small heart circling around your story — reminding you that some bonds are not just made, but felt forever.</p>
+        <p>Every laugh shared, every quiet moment, every little memory becomes a small heart circling around your story — reminding you that some bonds are not just made, but felt forever.</p>
       </div>
       <p class="author-line">— Friendship Tribute</p>
     </div>
