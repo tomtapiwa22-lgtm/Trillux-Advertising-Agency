@@ -503,34 +503,33 @@
   <div class="circle-hearts-section">
     <p class="circle-hearts-title">OUR FRIENDSHIP IN LITTLE HEARTS</p>
     <div class="circle-hearts-grid">
-              <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 3" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 4" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 5" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 6" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 7" /></div>
-        <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 8" /></div>
-      </div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
+      WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 3" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 4" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 5" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 6" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 7" /></div>
+      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 8" /></div>
     </div>
+  </div>
 
-    <div class="divider">
-      <span class="divider-line"></span>
-      <span class="divider-heart">♥</span>
-      <span class="divider-line"></span>
-    </div>
+  <div class="divider">
+    <span class="divider-line"></span>
+    <span class="divider-heart">♥</span>
+    <span class="divider-line"></span>
+  </div>
 
-    <div class="quote-wrapper">
-      <div class="quote-card">
-        <div class="shimmer"></div>
-        <span class="quote-mark">"</span>
-        <div class="quote-text">
-          <p>Friendship begins with a simple hello, but it grows into something that feels like home — a heart that understands yours even when words are few.</p>
-          <p>True friends don't need to be together every day. What matters is that when life changes, when days get heavy, and when joy comes around, you still know someone is there, cheering you on from their heart.</p>
-          <p>Every laugh shared, every quiet moment, every little memory becomes a small heart circling around your story — reminding you that some bonds are not just made, but felt forever.</p>
-        </div>
-        <p class="author-line">— Friendship Tribute</p>
+  <div class="quote-wrapper">
+    <div class="quote-card">
+      <div class="shimmer"></div>
+      <span class="quote-mark">"</span>
+      <div class="quote-text">
+        <p>Friendship begins with a simple hello, but it grows into something that feels like home — a heart that understands yours even when words are few.</p>
+        <p>True friends don't need to be together every day. What matters is that when life changes, when days get heavy, and when joy comes around, you still know someone is there, cheering you on from their heart.</p>
+        <p>Every laugh shared, every quiet moment, every little memory becomes a small heart circling around your story — reminding you that some bonds are not just made, but felt forever.</p>
       </div>
+      <p class="author-line">— Friendship Tribute</p>
     </div>
   </div>
 </div>
@@ -538,7 +537,6 @@
 <script>
   import { onMount } from 'svelte';
 
-  // Your song: Nyasha David - Nokusingaperi
   const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
 
   let count = 5;
@@ -576,13 +574,11 @@
   onMount(() => {
     hearts = generateHearts(15);
 
-    // Countdown from 5 to 0
     const timer = setInterval(() => {
       count--;
       if (count <= 0) {
         clearInterval(timer);
         countdownComplete = true;
-        // Auto-play music after swipe-out animation
         setTimeout(() => {
           isPlaying = true;
           youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=0`;
