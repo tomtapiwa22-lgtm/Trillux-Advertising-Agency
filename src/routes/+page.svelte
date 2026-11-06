@@ -507,4 +507,41 @@
 
   let isPlaying = false;
   let playerFrame;
-  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${
+  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID
+  const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
+
+  let isPlaying = false;
+  let playerFrame;
+  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
+
+  let hearts = [];
+
+  function generateHearts(count = 15) {
+    const arr = [];
+    for (let i = 0; i < count; i++) {
+      arr.push({
+        x: Math.random() * 90 + 5,
+        y: Math.random() * 80 + 10,
+        size: Math.random() * 1 + 1,
+        delay: Math.random() * 5,
+        dur: Math.random() * 4 + 6
+      });
+    }
+    return arr;
+  }
+
+  function toggleMusic() {
+    isPlaying = !isPlaying;
+    if (playerFrame) {
+      if (isPlaying) {
+        playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=0`;
+      } else {
+        playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
+      }
+    }
+  }
+
+  onMount(() => {
+    hearts = generateHearts(15);
+  });
+</script>
