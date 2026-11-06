@@ -16,6 +16,45 @@
       overflow-x: hidden;
     }
 
+    .music-toggle {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.5rem;
+      z-index: 9999;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      font-size: 1.6rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .music-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 77, 109, 0.35);
+    }
+    .music-toggle.playing {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25); }
+      50% { box-shadow: 0 4px 25px rgba(255, 77, 109, 0.5), 0 0 30px rgba(255, 204, 0, 0.3); }
+    }
+
+    .youtube-bg {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 1px; height: 1px;
+      opacity: 0.01;
+      pointer-events: none;
+      border: none;
+    }
+
     .page {
       min-height: 100vh;
       display: flex;
@@ -42,13 +81,8 @@
       animation: floatHeart 8s ease-in-out infinite;
     }
 
-    .heart:nth-child(odd) {
-      color: rgba(255, 180, 80, 0.35);
-    }
-
-    .heart:nth-child(3n) {
-      color: rgba(255, 100, 100, 0.35);
-    }
+    .heart:nth-child(odd) { color: rgba(255, 180, 80, 0.35); }
+    .heart:nth-child(3n) { color: rgba(255, 100, 100, 0.35); }
 
     @keyframes floatHeart {
       0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.4; }
@@ -89,9 +123,7 @@
       100% { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 2px; }
     }
 
-    @keyframes fadeGlow {
-      to { opacity: 1; }
-    }
+    @keyframes fadeGlow { to { opacity: 1; } }
 
     .main-grid {
       display: grid;
@@ -117,15 +149,10 @@
       overflow: hidden;
     }
 
-    .photo-card:nth-child(2) {
-      animation-delay: 0.3s;
-    }
+    .photo-card:nth-child(2) { animation-delay: 0.3s; }
 
     @keyframes cardSweepIn {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .photo-frame {
@@ -148,9 +175,7 @@
       transition: transform 6s ease;
     }
 
-    .photo-card:hover .photo-frame img {
-      transform: scale(1.03);
-    }
+    .photo-card:hover .photo-frame img { transform: scale(1.03); }
 
     .card-heart {
       position: absolute;
@@ -215,10 +240,7 @@
     .heart-pic:nth-child(8) { animation-delay: 1.65s, 0.18s; }
 
     @keyframes popHeartPic {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     @keyframes fastBounce {
@@ -267,9 +289,7 @@
       60% { transform: scale(1); }
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { to { opacity: 1; } }
 
     .quote-wrapper {
       max-width: 750px;
@@ -291,8 +311,7 @@
       overflow: hidden;
     }
 
-    .quote-card::before,
-    .quote-card::after {
+    .quote-card::before, .quote-card::after {
       content: '';
       position: absolute;
       width: 40px;
@@ -304,21 +323,16 @@
     }
 
     .quote-card::before {
-      top: 1.5rem;
-      left: 1.5rem;
+      top: 1.5rem; left: 1.5rem;
       border-width: 3px 0 0 3px;
     }
-
     .quote-card::after {
-      bottom: 1.5rem;
-      right: 1.5rem;
+      bottom: 1.5rem; right: 1.5rem;
       border-width: 0 3px 3px 0;
       animation-delay: 1.7s;
     }
 
-    @keyframes cornerPop {
-      to { opacity: 1; }
-    }
+    @keyframes cornerPop { to { opacity: 1; } }
 
     .quote-mark {
       font-size: 4rem;
@@ -326,8 +340,7 @@
       color: rgba(255, 77, 109, 0.15);
       font-family: Georgia, serif;
       position: absolute;
-      top: 0.5rem;
-      left: 1.5rem;
+      top: 0.5rem; left: 1.5rem;
       pointer-events: none;
     }
 
@@ -353,10 +366,7 @@
     .quote-text p:nth-child(3) { animation-delay: 2.0s; }
 
     @keyframes lineFade {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .author-line {
@@ -371,24 +381,14 @@
     }
 
     @keyframes quoteRise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .shimmer {
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-      );
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       animation: shimmerSweep 4s ease-in-out infinite;
       animation-delay: 2s;
       pointer-events: none;
@@ -401,34 +401,29 @@
     }
 
     @media (max-width: 640px) {
-      h1 {
-        font-size: 1.8rem;
-        letter-spacing: 1px;
-      }
-
-      .quote-text {
-        font-size: 1.1rem;
-      }
-
-      .page {
-        padding: 2rem 1.25rem;
-      }
-
-      .main-grid {
-        gap: 2rem;
-      }
-
-      .quote-card {
-        padding: 2rem 1.5rem;
-      }
-
-      .heart-pic {
-        width: 80px;
-        height: 80px;
-      }
+      h1 { font-size: 1.8rem; letter-spacing: 1px; }
+      .quote-text { font-size: 1.1rem; }
+      .page { padding: 2rem 1.25rem; }
+      .main-grid { gap: 2rem; }
+      .quote-card { padding: 2rem 1.5rem; }
+      .heart-pic { width: 80px; height: 80px; }
     }
   </style>
 </svelte:head>
+
+<button class="music-toggle" class:playing={isPlaying} on:click={toggleMusic}>
+  {isPlaying ? '🔊' : '🔇'}
+</button>
+
+<iframe
+  bind:this={playerFrame}
+  class="youtube-bg"
+  src={youtubeUrl}
+  title="Background Music"
+  frameborder="0"
+  allow="autoplay; encrypted-media"
+  allowfullscreen
+></iframe>
 
 <div class="page">
   <div class="hearts-bg">
@@ -507,19 +502,9 @@
 <script>
   import { onMount } from 'svelte';
 
-  let hearts = [];
+  // ✅ YOUR SONG: Nyasha David - Nokusingaperi
+  const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
 
-  function createHeart() {
-    return {
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: 1 + Math.random() * 1.5,
-      delay: Math.random() * 8,
-      dur: 6 + Math.random() * 6
-    };
-  }
-
-  onMount(() => {
-    hearts = Array.from({ length: 35 }, createHeart);
-  });
-</script>
+  let isPlaying = false;
+  let playerFrame;
+  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${
