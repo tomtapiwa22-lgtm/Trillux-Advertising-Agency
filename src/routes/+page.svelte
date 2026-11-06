@@ -356,13 +356,15 @@
   <div class="photos-row">
     <div class="photo-wrap">
       <div class="photo-frame">
-        <img src="/person1.jpg" alt="First" loading="lazy" />
+        <!-- Uses your file exactly as named in your repo -->
+        <img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="First" loading="lazy" />
       </div>
     </div>
 
     <div class="photo-wrap">
       <div class="photo-frame">
-        <img src="/person2.jpg" alt="Second" loading="lazy" />
+        <!-- Uses your file exactly as named in your repo -->
+        <img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Second" loading="lazy" />
       </div>
     </div>
   </div>
@@ -403,7 +405,6 @@
   }
 
   onMount(() => {
-    // Generate floating particles
     particles = Array.from({ length: 25 }, createParticle);
   });
 </script>
