@@ -1,542 +1,741 @@
 <svelte:head>
-  <title>Friendship Hearts 💛🤍💙</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.9) 0%, transparent 50%),
-        radial-gradient(circle at 90% 18%, rgba(255,255,255,0.7) 0%, transparent 45%),
-        linear-gradient(135deg, #fffaf0 0%, #fff3cd 35%, #ffe066 70%, #ffcc00 100%);
-      font-family: 'Segoe UI', Georgia, serif;
-      color: #6b4226;
-      overflow-x: hidden;
-    }
-
-    .music-toggle {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.5rem;
-      z-index: 9999;
-      background: rgba(255,255,255,0.9);
-      border: none;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      font-size: 1.6rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .music-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(255, 77, 109, 0.35);
-    }
-    .music-toggle.playing {
-      animation: pulseGlow 2s ease-in-out infinite;
-    }
-    @keyframes pulseGlow {
-      0%,100% { box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25); }
-      50% { box-shadow: 0 4px 25px rgba(255, 77, 109, 0.5), 0 0 30px rgba(255, 204, 0, 0.3); }
-    }
-
-    .youtube-bg {
-      position: fixed;
-      bottom: 0; left: 0;
-      width: 1px; height: 1px;
-      opacity: 0.01;
-      pointer-events: none;
-      border: none;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .hearts-bg {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .heart {
-      position: absolute;
-      color: rgba(255, 100, 150, 0.35);
-      font-size: 1.6rem;
-      animation: floatHeart 8s ease-in-out infinite;
-    }
-
-    .heart:nth-child(odd) { color: rgba(255, 180, 80, 0.35); }
-    .heart:nth-child(3n) { color: rgba(255, 100, 100, 0.35); }
-
-    @keyframes floatHeart {
-      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.4; }
-      25% { transform: translateY(-50px) translateX(25px) rotate(10deg); opacity: 0.8; }
-      50% { transform: translateY(-30px) translateX(-20px) rotate(-8deg); opacity: 0.5; }
-      75% { transform: translateY(-60px) translateX(15px) rotate(5deg); opacity: 0.7; }
-      100% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.4; }
-    }
-
-    .heading {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: 2.4rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(30px) scale(0.9);
-      animation: grandReveal 1.5s ease-out forwards;
-      text-shadow: 0 4px 20px rgba(107, 66, 38, 0.15);
-    }
-
-    .subtitle {
-      font-size: 1.15rem;
-      color: #a67c52;
-      font-style: italic;
-      margin-top: 0.8rem;
-      opacity: 0;
-      letter-spacing: 1px;
-      animation: fadeGlow 1.5s ease-out 0.4s forwards;
-    }
-
-    @keyframes grandReveal {
-      0% { opacity: 0; transform: translateY(40px) scale(0.8); letter-spacing: 8px; }
-      100% { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 2px; }
-    }
-
-    @keyframes fadeGlow { to { opacity: 1; } }
-
-    .main-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 2.5rem;
-      width: 100%;
-      margin-bottom: 2.5rem;
-      align-items: stretch;
-      z-index: 1;
-    }
-
-    .photo-card {
-      position: relative;
-      background: rgba(255,255,255,0.95);
-      border-radius: 26px;
-      padding: 1.2rem;
-      box-shadow:
-        0 10px 30px rgba(107, 66, 38, 0.12),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
-      opacity: 0;
-      transform: translateY(50px) scale(0.95);
-      animation: cardSweepIn 1.2s cubic-bezier(0.17, 0.67, 0.23, 0.99) forwards;
-      overflow: hidden;
-    }
-
-    .photo-card:nth-child(2) { animation-delay: 0.3s; }
-
-    @keyframes cardSweepIn {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .photo-frame {
-      width: 100%;
-      aspect-ratio: 3/4;
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      border: 4px solid transparent;
-      background: linear-gradient(#fff, #fff) padding-box,
-                  linear-gradient(45deg, #ff4d6d, #ffcc00, #ff4d6d, #ffcc00) border-box;
-      box-shadow: 0 0 18px rgba(255, 77, 109, 0.25);
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #f8f8f8;
-      transition: transform 6s ease;
-    }
-
-    .photo-card:hover .photo-frame img { transform: scale(1.03); }
-
-    .card-heart {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.8rem;
-      font-size: 1.4rem;
-      color: #ff4d6d;
-      animation: heartBeat 2s ease-in-out infinite;
-      filter: drop-shadow(0 0 6px rgba(255, 77, 109, 0.4));
-    }
-
-    .photo-label {
-      margin-top: 1rem;
-      text-align: center;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #6b4226;
-      letter-spacing: 1px;
-    }
-
-    .circle-hearts-section {
-      width: 100%;
-      max-width: 900px;
-      margin: 2rem 0 2.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .circle-hearts-title {
-      text-align: center;
-      font-size: 1.2rem;
-      color: #a67c52;
-      margin-bottom: 1.5rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .circle-hearts-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.2rem;
-    }
-
-    .heart-pic {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      opacity: 0;
-      transform: translateY(30px) scale(0.8);
-      animation: popHeartPic 0.8s ease-out forwards, fastBounce 0.55s ease-in-out infinite alternate;
-    }
-
-    .heart-pic:nth-child(1) { animation-delay: 0.6s, 0s; }
-    .heart-pic:nth-child(2) { animation-delay: 0.75s, 0.08s; }
-    .heart-pic:nth-child(3) { animation-delay: 0.9s, 0.16s; }
-    .heart-pic:nth-child(4) { animation-delay: 1.05s, 0.24s; }
-    .heart-pic:nth-child(5) { animation-delay: 1.2s, 0.32s; }
-    .heart-pic:nth-child(6) { animation-delay: 1.35s, 0.4s; }
-    .heart-pic:nth-child(7) { animation-delay: 1.5s, 0.1s; }
-    .heart-pic:nth-child(8) { animation-delay: 1.65s, 0.18s; }
-
-    @keyframes popHeartPic {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes fastBounce {
-      0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(-8px) scale(1.05); }
-    }
-
-    .heart-pic img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      clip-path: path('M50% 15% C65% 0%, 90% 0%, 90% 25% C90% 50%, 50% 85%, 50% 85% C50% 85%, 10% 50%, 10% 25% C10% 0%, 35% 0%, 50% 15% Z');
-      border: 3px solid #fff;
-      box-shadow: 0 4px 15px rgba(107, 66, 38, 0.15);
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 0.5rem 0 2.5rem;
-      opacity: 0;
-      animation: fadeIn 1s ease-out 0.8s forwards;
-      z-index: 1;
-    }
-
-    .divider-line {
-      height: 2px;
-      flex: 1;
-      max-width: 100px;
-      background: linear-gradient(90deg, transparent, #ff4d6d, transparent);
-    }
-
-    .divider-heart {
-      font-size: 2.2rem;
-      color: #ff4d6d;
-      animation: heartBeat 2s ease-in-out infinite;
-      filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.35));
-    }
-
-    @keyframes heartBeat {
-      0%,100% { transform: scale(1); }
-      15% { transform: scale(1.25); }
-      30% { transform: scale(1); }
-      45% { transform: scale(1.2); }
-      60% { transform: scale(1); }
-    }
-
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    .quote-wrapper {
-      max-width: 750px;
-      width: 100%;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: quoteRise 1.5s ease-out 1.1s forwards;
-      z-index: 1;
-    }
-
-    .quote-card {
-      background: rgba(255,255,255,0.96);
-      border-radius: 24px;
-      padding: 2.5rem;
-      box-shadow:
-        0 10px 40px rgba(107, 66, 38, 0.12),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .quote-card::before, .quote-card::after {
-      content: '';
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-color: rgba(255, 77, 109, 0.35);
-      border-style: solid;
-      opacity: 0;
-      animation: cornerPop 1.2s ease-out 1.5s forwards;
-    }
-
-    .quote-card::before {
-      top: 1.5rem; left: 1.5rem;
-      border-width: 3px 0 0 3px;
-    }
-    .quote-card::after {
-      bottom: 1.5rem; right: 1.5rem;
-      border-width: 0 3px 3px 0;
-      animation-delay: 1.7s;
-    }
-
-    @keyframes cornerPop { to { opacity: 1; } }
-
-    .quote-mark {
-      font-size: 4rem;
-      line-height: 1;
-      color: rgba(255, 77, 109, 0.15);
-      font-family: Georgia, serif;
-      position: absolute;
-      top: 0.5rem; left: 1.5rem;
-      pointer-events: none;
-    }
-
-    .quote-text {
-      font-size: 1.35rem;
-      line-height: 2;
-      color: #6b4226;
-      font-style: italic;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .quote-text p {
-      margin-bottom: 1.8rem;
-      opacity: 0;
-      transform: translateY(15px);
-      animation: lineFade 1s ease-out forwards;
-    }
-
-    .quote-text p:nth-child(1) { animation-delay: 1.4s; }
-    .quote-text p:nth-child(2) { animation-delay: 1.7s; }
-    .quote-text p:nth-child(3) { animation-delay: 2.0s; }
-
-    @keyframes lineFade {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .author-line {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 1.1rem;
-      color: #a67c52;
-      font-weight: 600;
-      letter-spacing: 2px;
-      opacity: 0;
-      animation: fadeIn 1s ease-out 2.3s forwards;
-    }
-
-    @keyframes quoteRise {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .shimmer {
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shimmerSweep 4s ease-in-out infinite;
-      animation-delay: 2s;
-      pointer-events: none;
-    }
-
-    @keyframes shimmerSweep {
-      0% { left: -100%; }
-      50% { left: 100%; }
-      100% { left: 100%; }
-    }
-
-    @media (max-width: 640px) {
-      h1 { font-size: 1.8rem; letter-spacing: 1px; }
-      .quote-text { font-size: 1.1rem; }
-      .page { padding: 2rem 1.25rem; }
-      .main-grid { gap: 2rem; }
-      .quote-card { padding: 2rem 1.5rem; }
-      .heart-pic { width: 80px; height: 80px; }
-    }
-  </style>
+	<title>Trillux Advertising Agents — Plan • Promote • Grow</title>
+	<meta name="description" content="Your Trusted Advertising Partner. Reach more. Grow faster. Achieve more." />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+		:global(body) {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		}
+		h1, h2, h3, h4, .logo-text, .logo-icon {
+			font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+		}
+	</style>
 </svelte:head>
 
-<button class="music-toggle" class:playing={isPlaying} on:click={toggleMusic}>
-  {isPlaying ? '🔊' : '🔇'}
-</button>
+<nav class="navbar">
+	<div class="nav-container">
+		<a href="#" class="logo-wrap">
+			<span class="logo-icon">T</span>
+			<span class="logo-text">Trillux</span>
+		</a>
+		<ul class="nav-links">
+			<li><a href="#services">Services</a></li>
+			<li><a href="#about">About</a></li>
+			<li><a href="#why">Why Us</a></li>
+			<li><a href="#contact" class="nav-cta">Partner With Us</a></li>
+		</ul>
+	</div>
+</nav>
 
-<iframe
-  bind:this={playerFrame}
-  class="youtube-bg"
-  src={youtubeUrl}
-  title="Background Music"
-  frameborder="0"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<section class="hero">
+	<div class="hero-overlay"></div>
+	<div class="hero-container">
+		<div class="hero-content">
+			<p class="tagline">Plan • Promote • Grow</p>
+			<h1>Your Trusted <br /><span class="gold-text">Advertising Partner</span></h1>
+			<p class="hero-subtitle">Reach more. <strong class="gold-text">Grow faster.</strong><br />Achieve <strong class="gold-text">more</strong>.</p>
+			<div class="hero-features">
+				<div class="feature-item">
+					<span class="feature-icon">📈</span>
+					<span>Targeted Advertising Solutions</span>
+				</div>
+				<div class="feature-item">
+					<span class="feature-icon">👥</span>
+					<span>Expert Marketing Strategies</span>
+				</div>
+				<div class="feature-item">
+					<span class="feature-icon">🚀</span>
+					<span>Real Results for Your Business</span>
+				</div>
+			</div>
+			<button class="cta-primary">Partner with Trillux →</button>
+			<p class="hero-footer">Let's Grow Together</p>
+		</div>
+	</div>
+</section>
 
-<div class="page">
-  <div class="hearts-bg">
-    {#each hearts as h}
-      <span
-        class="heart"
-        style="
-          left: {h.x}%;
-          top: {h.y}%;
-          font-size: {h.size}rem;
-          animation-delay: {h.delay}s;
-          animation-duration: {h.dur}s;
-        "
-        >♥</span
-      >
-    {/each}
-  </div>
+<section id="services" class="section dark-section">
+	<div class="container">
+		<div class="section-header">
+			<p class="section-label">What We Do</p>
+			<h2>Strategies That Deliver <span class="gold-text">Real Growth</span></h2>
+			<div class="gold-divider"></div>
+		</div>
+		<div class="services-grid">
+			<div class="service-card">
+				<div class="card-number">01</div>
+				<h3>Plan</h3>
+				<p>We craft tailored advertising strategies aligned with your unique business goals, audience, and vision.</p>
+			</div>
+			<div class="service-card">
+				<div class="card-number">02</div>
+				<h3>Promote</h3>
+				<p>Amplify your brand across the right channels — precision-targeted campaigns that build visibility and authority.</p>
+			</div>
+			<div class="service-card">
+				<div class="card-number">03</div>
+				<h3>Grow</h3>
+				<p>Measurable impact. Sustained momentum. We turn attention into loyal customers and lasting expansion.</p>
+			</div>
+		</div>
+	</div>
+</section>
 
-  <div class="heading">
-    <h1>Friendship Hearts 💛🤍💙</h1>
-    <p class="subtitle">True friendship is the heart that stays with you through every season</p>
-  </div>
+<section id="why" class="section light-section">
+	<div class="container">
+		<div class="two-column">
+			<div class="col-text">
+				<p class="section-label">Why Trillux</p>
+				<h2>Your Partner in <span class="gold-text">Every Phase</span> of Growth</h2>
+				<div class="gold-divider"></div>
+				<p>We don't just run ads — we build your brand's path forward. From your first campaign to your next milestone, our team is invested in your success as deeply as you are.</p>
+				<ul class="check-list">
+					<li>✓ Proven strategies, not guesswork</li>
+					<li>✓ Transparent reporting & clear communication</li>
+					<li>✓ Scalable solutions that grow with you</li>
+					<li>✓ Dedicated partners invested in your results</li>
+				</ul>
+				<a href="#contact" class="cta-secondary">Start Your Journey →</a>
+			</div>
+			<div class="col-accent">
+				<div class="accent-box">
+					<p class="accent-quote">"Reach more. Grow faster. Achieve more."</p>
+					<p class="accent-small">— The Trillux Promise</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-  <div class="main-grid">
-    <div class="photo-card">
-      <div class="photo-frame">
-        <img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Friend 1" loading="lazy" />
-      </div>
-      <span class="card-heart">♥</span>
-      <p class="photo-label">Friend One</p>
-    </div>
+<section id="about" class="section dark-section">
+	<div class="container">
+		<div class="two-column reverse">
+			<div class="col-text">
+				<p class="section-label">About Us</p>
+				<h2>Trillux — Where <span class="gold-text">Vision Meets Visibility</span></h2>
+				<div class="gold-divider"></div>
+				<p>Born from a belief that great businesses deserve great representation, Trillux exists to help ambitious brands stand out, connect deeply, and scale boldly.</p>
+				<p>We combine creative excellence with data-driven precision, ensuring every campaign works as hard as you do.</p>
+			</div>
+			<div class="col-accent">
+				<div class="stat-box">
+					<div class="stat-main">Plan • Promote • Grow</div>
+					<div class="stat-subtitle">The three pillars of every successful partnership</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-    <div class="photo-card">
-      <div class="photo-frame">
-        <img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Friend 2" loading="lazy" />
-      </div>
-      <span class="card-heart">♥</span>
-      <p class="photo-label">Friend Two</p>
-    </div>
-  </div>
+<section id="contact" class="section gold-section">
+	<div class="container contact-wrap">
+		<div class="contact-text">
+			<h2>Ready to <span class="dark-text">Grow Together?</span></h2>
+			<p>Your trusted advertising partner is just a message away. Let's discuss how we can help you reach more, grow faster, and achieve more.</p>
+		</div>
+		<form class="contact-form">
+			<input type="text" placeholder="Your Name" required />
+			<input type="email" placeholder="Your Email" required />
+			<input type="text" placeholder="Your Business Name" />
+			<textarea rows="5" placeholder="Tell us about your goals…" required></textarea>
+			<button type="submit" class="form-cta">Partner with Trillux →</button>
+		</form>
+	</div>
+</section>
 
-  <div class="circle-hearts-section">
-    <p class="circle-hearts-title">OUR FRIENDSHIP IN LITTLE HEARTS</p>
-    <div class="circle-hearts-grid">
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 1" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 2" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 3" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 4" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 5" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 6" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.58 (2).jpeg" alt="Memory 7" /></div>
-      <div class="heart-pic"><img src="/WhatsApp Image 2026-11-06 at 19.00.59.jpeg" alt="Memory 8" /></div>
-    </div>
-  </div>
+<footer class="footer">
+	<div class="container footer-grid">
+		<div class="footer-brand">
+			<span class="logo-icon">T</span>
+			<h3>Trillux</h3>
+			<p>Advertising Agents</p>
+			<p class="footer-tag">Plan • Promote • Grow</p>
+		</div>
+		<div class="footer-links">
+			<h4>Quick Links</h4>
+			<ul>
+				<li><a href="#services">Services</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#why">Why Us</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+		</div>
+		<div class="footer-contact">
+			<h4>Get In Touch</h4>
+			<p>hello@trillux.agency</p>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<p>© 2026 Trillux Advertising Agents. All rights reserved.<br />Reach more. Grow faster. Achieve more.</p>
+	</div>
+</footer>
 
-  <div class="divider">
-    <span class="divider-line"></span>
-    <span class="divider-heart">♥</span>
-    <span class="divider-line"></span>
-  </div>
+<style>
+	:global(*) {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
 
-  <div class="quote-wrapper">
-    <div class="quote-card">
-      <div class="shimmer"></div>
-      <span class="quote-mark">"</span>
-      <div class="quote-text">
-        <p>Friendship begins with a simple hello, but it grows into something that feels like home — a heart that understands yours even when words are few.</p>
-        <p>True friends don't need to be together every day. What matters is that when life changes, when days get heavy, and when joy comes around, you still know someone is there, cheering you on from their heart.</p>
-        <p>Every laugh shared, every quiet moment, every little memory becomes a small heart circling around your story — reminding you that some bonds are not just made, but felt forever.</p>
-      </div>
-      <p class="author-line">— Friendship Tribute</p>
-    </div>
-  </div>
-</div>
+	:global(html) {
+		scroll-behavior: smooth;
+	}
 
-<script>
-  import { onMount } from 'svelte';
+	:global(body) {
+		background: #050508;
+		color: #fff;
+		line-height: 1.6;
+	}
 
-  // Your song: Nyasha David - Nokusingaperi
-  const YOUTUBE_VIDEO_ID = "Apw27ZrpHm8";
+	h1, h2, h3, h4 {
+		font-weight: 700;
+		line-height: 1.2;
+	}
 
-  let isPlaying = false;
-  let playerFrame;
-  let youtubeUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
+	.gold-text {
+		color: #d4af37;
+	}
 
-  let hearts = [];
+	.dark-text {
+		color: #050508;
+	}
 
-  function generateHearts(count = 15) {
-    const arr = [];
-    for (let i = 0; i < count; i++) {
-      arr.push({
-        x: Math.random() * 90 + 5,
-        y: Math.random() * 80 + 10,
-        size: Math.random() * 1 + 1,
-        delay: Math.random() * 5,
-        dur: Math.random() * 4 + 6
-      });
-    }
-    return arr;
-  }
+	.gold-divider {
+		width: 60px;
+		height: 3px;
+		background: linear-gradient(90deg, #d4af37, #f4d03f);
+		margin: 1.5rem 0 2rem;
+	}
 
-  function toggleMusic() {
-    isPlaying = !isPlaying;
-    if (playerFrame) {
-      if (isPlaying) {
-        playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=0`;
-      } else {
-        playerFrame.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&mute=1`;
-      }
-    }
-  }
+	.navbar {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		z-index: 100;
+		padding: 2rem 4rem;
+	}
 
-  onMount(() => {
-    hearts = generateHearts(15);
-  });
-</script>
+	.nav-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo-wrap {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		text-decoration: none;
+	}
+
+	.logo-icon {
+		width: 42px;
+		height: 42px;
+		background: linear-gradient(135deg, #d4af37, #f4d03f);
+		color: #000;
+		font-weight: 800;
+		font-size: 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 4px;
+	}
+
+	.logo-text {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: white;
+		letter-spacing: 1px;
+	}
+
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 2.5rem;
+		list-style: none;
+	}
+
+	.nav-links a {
+		color: rgba(255,255,255,0.75);
+		text-decoration: none;
+		font-size: 0.95rem;
+		font-weight: 500;
+		transition: color 0.3s ease;
+	}
+
+	.nav-links a:hover {
+		color: #d4af37;
+	}
+
+	.nav-cta {
+		padding: 0.75rem 1.75rem;
+		background: linear-gradient(135deg, #d4af37, #b8860b);
+		color: #000 !important;
+		border-radius: 4px;
+		font-weight: 600 !important;
+	}
+
+	.nav-cta:hover {
+		background: linear-gradient(135deg, #e4c048, #c9971c);
+		transform: translateY(-1px);
+	}
+
+	.hero {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		padding: 0 4rem;
+		position: relative;
+		background: linear-gradient(135deg, #050508 0%, #111 60%, #1a1a1a 100%);
+		overflow: hidden;
+	}
+
+	.hero::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 60%;
+		height: 100%;
+		background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.12), transparent 60%);
+		pointer-events: none;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at 80% 30%, rgba(212, 175, 55, 0.08), transparent 50%);
+		pointer-events: none;
+	}
+
+	.hero-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		width: 100%;
+		padding-top: 4rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-content {
+		max-width: 650px;
+	}
+
+	.tagline {
+		color: #d4af37;
+		font-size: 1rem;
+		letter-spacing: 4px;
+		text-transform: uppercase;
+		margin-bottom: 1.5rem;
+		font-weight: 600;
+	}
+
+	.hero h1 {
+		font-size: 3.8rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-subtitle {
+		font-size: 1.3rem;
+		color: #ccc;
+		margin-bottom: 2rem;
+		line-height: 1.8;
+	}
+
+	.hero-features {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.feature-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		color: #ddd;
+		font-size: 1rem;
+	}
+
+	.feature-icon {
+		font-size: 1.25rem;
+	}
+
+	.cta-primary {
+		padding: 1rem 2.5rem;
+		background: linear-gradient(135deg, #d4af37, #b8860b);
+		color: #000;
+		border: none;
+		border-radius: 4px;
+		font-size: 1.1rem;
+		font-weight: 700;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		margin-bottom: 1rem;
+	}
+
+	.cta-primary:hover {
+		background: linear-gradient(135deg, #e4c048, #c9971c);
+		transform: translateY(-2px);
+		box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+	}
+
+	.hero-footer {
+		color: #999;
+		font-size: 0.95rem;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+	}
+
+	.section {
+		padding: 5.5rem 2rem;
+	}
+
+	.dark-section {
+		background: #0a0a0f;
+	}
+
+	.light-section {
+		background: #111;
+	}
+
+	.gold-section {
+		background: linear-gradient(135deg, #d4af37, #b8860b);
+		color: #000;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.section-label {
+		color: #d4af37;
+		font-size: 0.85rem;
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		margin-bottom: 0.75rem;
+		font-weight: 600;
+	}
+
+	.gold-section .section-label {
+		color: #333;
+	}
+
+	.section h2 {
+		font-size: 2.4rem;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		background: #151520;
+		padding: 2.5rem;
+		border-radius: 6px;
+		border-left: 3px solid #d4af37;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.service-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 12px 40px rgba(212, 175, 55, 0.1);
+	}
+
+	.card-number {
+		color: #d4af37;
+		font-size: 0.9rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+		opacity: 0.7;
+	}
+
+	.service-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		color: #fff;
+	}
+
+	.service-card p {
+		color: #999;
+		line-height: 1.7;
+	}
+
+	.two-column {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
+	.reverse {
+		direction: rtl;
+	}
+
+	.reverse > * {
+		direction: ltr;
+	}
+
+	.col-text h2 {
+		text-align: left;
+		margin: 0 0 1rem;
+	}
+
+	.col-text p {
+		color: #bbb;
+		margin-bottom: 1.25rem;
+		font-size: 1.05rem;
+	}
+
+	.check-list {
+		list-style: none;
+		margin: 2rem 0;
+	}
+
+	.check-list li {
+		color: #ccc;
+		padding: 0.5rem 0;
+		font-weight: 500;
+	}
+
+	.cta-secondary {
+		display: inline-block;
+		padding: 0.9rem 2rem;
+		border: 2px solid #d4af37;
+		color: #d4af37;
+		text-decoration: none;
+		font-weight: 600;
+		border-radius: 4px;
+		transition: all 0.3s ease;
+	}
+
+	.cta-secondary:hover {
+		background: #d4af37;
+		color: #000;
+	}
+
+	.col-accent {
+		display: flex;
+		justify-content: center;
+	}
+
+	.accent-box, .stat-box {
+		background: linear-gradient(135deg, #1a1a28, #222);
+		padding: 3rem;
+		border-radius: 8px;
+		border: 1px solid rgba(212, 175, 55, 0.2);
+		text-align: center;
+	}
+
+	.accent-quote {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #d4af37;
+		margin-bottom: 1rem;
+		line-height: 1.5;
+	}
+
+	.accent-small {
+		color: #777;
+		font-size: 0.9rem;
+	}
+
+	.stat-main {
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: #d4af37;
+		margin-bottom: 1rem;
+	}
+
+	.stat-subtitle {
+		color: #888;
+		font-size: 0.95rem;
+	}
+
+	.contact-wrap {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.contact-text h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.contact-text p {
+		font-size: 1.05rem;
+		line-height: 1.8;
+		opacity: 0.85;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.contact-form input,
+	.contact-form textarea {
+		padding: 1rem 1.25rem;
+		border: none;
+		border-radius: 4px;
+		font-size: 1rem;
+		background: rgba(255,255,255,0.9);
+		color: #000;
+	}
+
+	.contact-form input:focus,
+	.contact-form textarea:focus {
+		outline: 2px solid #000;
+	}
+
+	.form-cta {
+		padding: 1rem 2rem;
+		background: #000;
+		color: #d4af37;
+		border: none;
+		border-radius: 4px;
+		font-size: 1.1rem;
+		font-weight: 700;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		margin-top: 0.5rem;
+	}
+
+	.form-cta:hover {
+		background: #1a1a1a;
+		transform: translateY(-2px);
+	}
+
+	.footer {
+		background: #000;
+		padding: 4rem 2rem 2rem;
+		border-top: 1px solid #222;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.footer-brand {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.footer-brand .logo-icon {
+		width: 36px;
+		height: 36px;
+		font-size: 1.2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.footer-brand h3 {
+		font-size: 1.4rem;
+	}
+
+	.footer-brand p {
+		color: #777;
+		font-size: 0.9rem;
+	}
+
+	.footer-tag {
+		color: #d4af37 !important;
+		font-size: 0.85rem;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		margin-top: 0.5rem;
+	}
+
+	.footer-links h4,
+	.footer-contact h4 {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: 1rem;
+		color: #d4af37;
+	}
+
+	.footer-links ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.footer-links a {
+		color: #bbb;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.footer-links a:hover {
+		color: #d4af37;
+	}
+
+	.footer-contact p {
+		color: #bbb;
+	}
+
+	.footer-bottom {
+		text-align: center;
+		padding-top: 2rem;
+		border-top: 1px solid #222;
+		color: #666;
+		font-size: 0.85rem;
+		line-height: 1.8;
+	}
+
+	@media (max-width: 900px) {
+		.navbar, .hero {
+			padding: 1.5rem;
+		}
+
+		.nav-links {
+			display: none;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+		.two-column,
+		.contact-wrap {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero h1 {
+			font-size: 2rem;
+		}
+
+		.section {
+			padding: 4rem 1.5rem;
+		}
+
+		.section h2 {
+			font-size: 1.75rem;
+		}
+
+		.navbar {
+			padding: 1.5rem;
+		}
+	}
+</style>
