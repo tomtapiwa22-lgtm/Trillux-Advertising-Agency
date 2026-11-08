@@ -21,10 +21,11 @@
 		<ul class="nav-links">
 			<li><a href="#promise">Our Promise</a></li>
 			<li><a href="#about">Who We Are</a></li>
-			<li><a href="#edge">The Haverly Edge</a></li>
+			<li><a href="#edge">Our Edge</a></li>
 			<li><a href="#contact" class="nav-cta">Join The Pack →</a></li>
 		</ul>
-	</nav>
+	</div>
+</nav>
 
 <section class="hero">
 	<div class="hero-overlay"></div>
@@ -40,7 +41,7 @@
 			<div class="hero-features">
 				<div class="feature-item">
 					<span class="feature-icon">🐺</span>
-					<span>Haverly Specter — Unapologetic, Unstoppable</span>
+					<span>Unapologetic. Unstoppable.</span>
 				</div>
 				<div class="feature-item">
 					<span class="feature-icon">⚡</span>
@@ -51,7 +52,7 @@
 					<span>Your Success = Our Only Agenda</span>
 				</div>
 			</div>
-			<button class="cta-primary">Let’s Hunt Together →</button>
+			<button class="cta-primary" on:click={() => window.location.href = '#contact'}>Let’s Hunt Together →</button>
 			<p class="hero-footer">More Clients. More Revenue. More YOU.</p>
 		</div>
 	</div>
@@ -73,7 +74,7 @@
 			<div class="service-card">
 				<div class="card-number">02</div>
 				<h3>The Wolf Mindset</h3>
-				<p>Haverly Specter doesn't do "average." We don't do "me too." We hunt. We dominate. We make sure your brand stands where others only dream of.</p>
+				<p>We don't do "average." We don't do "me too." We hunt. We dominate. We make sure your brand stands where others only dream of.</p>
 			</div>
 			<div class="service-card">
 				<div class="card-number">03</div>
@@ -88,11 +89,11 @@
 	<div class="container">
 		<div class="two-column">
 			<div class="col-text">
-				<p class="section-label">Why Haverly Specter</p>
+				<p class="section-label">Why Trillux</p>
 				<h2>Conquer Your <span class="blue-gold-text">Market</span> — Not Just Your Feed</h2>
 				<div class="gold-divider"></div>
 				<blockquote class="specter-quote">
-					"Most agencies want your budget. I want your legacy. Marketing isn't decoration — it's domination. Either you lead the pack, or you're running behind it."
+					"Most agencies want your budget. We want your legacy. Marketing isn't decoration — it's domination. Either you lead the pack, or you're running behind it."
 				</blockquote>
 				<ul class="check-list">
 					<li>🐺 We don't chase trends — we set them</li>
@@ -105,8 +106,8 @@
 			<div class="col-accent">
 				<div class="accent-box">
 					<p class="accent-quote">"Your growth is our growth."</p>
-					<p class="accent-line">— Haverly Specter</p>
-					<p class="accent-small">Founder • Trillux</p>
+					<p class="accent-line">— The Trillux Promise</p>
+					<p class="accent-small">Your Partner in Growth</p>
 				</div>
 			</div>
 		</div>
@@ -126,7 +127,7 @@
 			<div class="col-accent">
 				<div class="stat-box">
 					<div class="stat-main">More Clients.<br />More Revenue.<br />More Growth.</div>
-					<div class="stat-subtitle">That’s the only metric that matters</div>
+					<div class="stat-subtitle">That's the only metric that matters</div>
 				</div>
 			</div>
 		</div>
@@ -137,15 +138,19 @@
 	<div class="container contact-wrap">
 		<div class="contact-text">
 			<h2>Ready To <span class="dark-text">Hunt With The Best?</span></h2>
-			<p>Let’s be clear: I’m not here to take your money. I’m here to multiply it. My only concern is for you to have more clients, more revenue, and the market position you deserve. Your growth is our growth — always.</p>
-			<p class="loyalty-line">Loyalty is a two-way street. Let’s start walking it together.</p>
+			<p>Let's be clear: We're not here to take your money. We're here to multiply it. Our only concern is for you to have more clients, more revenue, and the market position you deserve. Your growth is our growth — always.</p>
+			<p class="loyalty-line">Loyalty is a two-way street. Let's start walking it together.</p>
+			<div class="whatsapp-box">
+				<p class="whatsapp-label">📱 Chat Directly On WhatsApp:</p>
+				<a href="https://wa.me/447551769863" target="_blank" class="whatsapp-link">+44 7551 769 863</a>
+			</div>
 		</div>
 		<form class="contact-form">
 			<input type="text" placeholder="Your Name" required />
 			<input type="email" placeholder="Your Email" required />
 			<input type="text" placeholder="Your Business — Your Territory" />
-			<textarea rows="5" placeholder="Tell me what you want to conquer…" required></textarea>
-			<button type="submit" class="form-cta">Let’s Grow Together →</button>
+			<textarea rows="5" placeholder="Tell us what you want to conquer…" required></textarea>
+			<button type="submit" class="form-cta">Let's Grow Together →</button>
 		</form>
 	</div>
 </section>
@@ -163,14 +168,14 @@
 			<ul>
 				<li><a href="#promise">Our Promise</a></li>
 				<li><a href="#about">About Us</a></li>
-				<li><a href="#edge">The Haverly Edge</a></li>
+				<li><a href="#edge">Our Edge</a></li>
 				<li><a href="#contact">Work With Us</a></li>
 			</ul>
 		</div>
 		<div class="footer-contact">
 			<h4>Get In Touch</h4>
 			<p>hello@trillux.agency</p>
-			<p class="wolf-sign">— Haverly Specter</p>
+			<p class="whatsapp-footer">📱 <a href="https://wa.me/447551769863" target="_blank">+44 7551 769 863</a></p>
 		</div>
 	</div>
 	<div class="footer-bottom">
@@ -604,7 +609,6 @@
 		color: #7a94c0;
 		font-size: 0.9rem;
 	}
-
 	.stat-main {
 		font-size: 1.7rem;
 		font-weight: 700;
@@ -625,6 +629,7 @@
 		gap: 4rem;
 		align-items: start;
 	}
+
 	.contact-text h2 {
 		font-size: 2.4rem;
 		margin-bottom: 1.5rem;
@@ -644,6 +649,36 @@
 		border-top: 1px solid rgba(0,0,0,0.15);
 		padding-top: 1rem;
 		margin-top: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.whatsapp-box {
+		background: rgba(0,0,0,0.15);
+		padding: 1.25rem 1.5rem;
+		border-radius: 6px;
+		border-left: 3px solid #050a14;
+	}
+
+	.whatsapp-label {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: 0.5rem;
+		font-weight: 600;
+	}
+
+	.whatsapp-link {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #050a14;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.whatsapp-link:hover {
+		color: #fff;
+		transform: translateX(5px);
+		display: inline-block;
 	}
 
 	.contact-form {
@@ -763,10 +798,15 @@
 		color: #9ab0d0;
 	}
 
-	.wolf-sign {
+	.whatsapp-footer a {
 		color: #4a90e2;
-		font-style: italic;
-		margin-top: 0.5rem;
+		text-decoration: none;
+		font-weight: 600;
+		transition: color 0.2s ease;
+	}
+
+	.whatsapp-footer a:hover {
+		color: #d4af37;
 	}
 
 	.footer-bottom {
@@ -819,6 +859,9 @@
 		.hero-subtitle {
 			font-size: 1.1rem;
 		}
+
+		.whatsapp-link {
+			font-size: 1.1rem;
+		}
 	}
 </style>
-
